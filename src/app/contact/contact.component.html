@@ -1,0 +1,35 @@
+
+  <div class="card" style="width: 400px; margin-top: 50px; margin-left: 500px;">
+    <div class="card-header text-center">
+      Send us a message
+    </div>
+    <div class="card-body">
+        <form class="contact" [formGroup]="form" method="post" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input matInput [formControl]="name" required>
+              <mat-error *ngIf="name.invalid">Please enter your name</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput [formControl]="email" placeholder="email@example.com" required>
+              <mat-error *ngIf="email.invalid">Please enter a valid email</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Message</mat-label>
+              <textarea matInput [formControl]="message" maxlength="256" placeholder="I'm interested in..." required></textarea>
+              <mat-hint align="end"> {{message.value?.length || 0}}/256</mat-hint>
+              <mat-error *ngIf="message.invalid">Please enter a message</mat-error>
+            </mat-form-field>
+            <button [disabled]="isLoading" class="submit" type="submit">Submit</button>
+            <input [formControl]="honeypot" class="hidden" type="text" />
+            <div [hidden]="afficher" class="center-text">
+              <span>{{responseMessage}}</span>
+            </div>
+          </form>
+    </div>
+</div>
+<div *ngIf="!authService.isloggedIn">
+
+    <a  routerLink="/acceuil" class="btn btn-dark">Retour</a>
+</div>
